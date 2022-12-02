@@ -47,6 +47,29 @@ def recognize_speech_from_mic(recognizer, microphone):
     return response
 
 
+def interpretCommand(command):
+    if command == "f":
+        ser.write(b"f")
+
+    elif command == "b":
+        ser.write(b"b")
+
+    elif command == "l":
+        ser.write(b"l")
+
+    elif command == "r":
+        ser.write(b"r")
+
+    elif command == "s":
+        ser.write(b"s")
+
+    elif command == "p":
+        ser.write(b"p")
+
+    elif command == "x":
+        ser.write(b"x")
+
+
 if __name__ == "__main__":
     # set the list of words, maxnumber of guesses, and prompt limit
     SPEECH_TO_BIN = {
@@ -54,16 +77,18 @@ if __name__ == "__main__":
         "backward": "b",
         "left": "l",
         "right": "r",
+        "start": "s",
+        "stop": "p",
+        "reset": "x",
     }
-    NUM_GUESSES = 3
-    PROMPT_LIMIT = 5
     ser = serial.Serial("COM3", 9600, timeout=1)
+    PROMPT_LIMIT = 100
+    record = False
+    recorded = []
 
     # create recognizer and mic instances
     recognizer = sr.Recognizer()
     microphone = sr.Microphone()
-
-    # get a random word from the list
 
     # format the instructions string
     instructions = (
@@ -76,7 +101,6 @@ if __name__ == "__main__":
     print(instructions)
     time.sleep(3)
 
-    # for i in range(NUM_GUESSES):
     while True:
         # get the guess from the user
         # if a transcription is returned, break out of the loop and
@@ -106,37 +130,11 @@ if __name__ == "__main__":
 
         try:
             command = f'{SPEECH_TO_BIN[guess["transcription"]]}'
+            interpretCommand(command)
 
-            if command == "f":
-                ser.write(b"f")
-            elif command == "b":
-                ser.write(b"b")
-            elif command == "l":
-                ser.write(b"l")
-            elif command == "r":
-                ser.write(b"r")
-
-            # ser.write(command)
-            # ser.write(bytes(f'{SPEECH_TO_BIN[guess["transcription"]]}', "utf-8"))
             print(bytes(f'{SPEECH_TO_BIN[guess["transcription"]]}', "utf-8"))
-            print("Binary: {}".format(SPEECH_TO_BIN[guess["transcription"]]))
             data = ser.readline()
             print(data)
+
         except:
             print("ERROR: Unknown command")
-
-        # determine if guess is correct and if any attempts remain
-        # guess_is_correct = guess["transcription"].lower() == word.lower()
-        # user_has_more_attempts = i < NUM_GUESSES - 1
-
-        # determine if the user has won the game
-        # if not, repeat the loop if user has more attempts
-        # if no attempts left, the user loses the game
-        # if guess_is_correct:
-        #     print("Correct! You win!".format(word))
-        #     break
-        # elif user_has_more_attempts:
-        #     print("Incorrect. Try again.\n")
-        # else:
-        #     print("Sorry, you lose!\nI was thinking of '{}'.".format(word))
-        #     break
