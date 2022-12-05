@@ -1,5 +1,6 @@
 #include <RH_ASK.h>
 #include <SPI.h> // Not actually used but needed to compile
+// drive 12
 
 // "/char incomingByte ; // for incoming serial data /"
 
@@ -22,22 +23,23 @@ void loop()
     {
         // read the incoming byte:
         incomingByte = Serial.read();
-            // if (incomingByte == 'H') {    // if byte is H for HIGH then turn LED on
 
-        if (incomingByte == 'f') {
+        if (incomingByte == 'f')
+        {
             driver.send((uint8_t *)"f", (1));
         }
-        if (incomingByte == 'b') {
+        if (incomingByte == 'b')
+        {
             driver.send((uint8_t *)"b", (1));
         }
-        if (incomingByte == 'l') {
-           driver.send((uint8_t *)"l", (1));
+        if (incomingByte == 'l')
+        {
+            driver.send((uint8_t *)"l", (1));
         }
-        if (incomingByte == 'r') {
-           driver.send((uint8_t *)"r", (1));
+        if (incomingByte == 'r')
+        {
+            driver.send((uint8_t *)"r", (1));
         }
-        // incomingByte.pop();
-        // incomingByte.pop();
 
         // say what you got:
         Serial.print("I received: ");
@@ -60,22 +62,3 @@ void loop()
     //     driver.waitPacketSent();
     //     delay(5000);
 }
-
-    // int incomingByte = 0;   // for incoming serial data
-
-    // void setup() {
-    //         Serial.begin(9600);     // opens serial port, sets data rate to 9600 bps
-    // }
-
-    // void loop() {
-
-    //         // send data only when you receive data:
-    //         if (Serial.available() > 0) {
-    //                 // read the incoming byte:
-    //                 incomingByte = Serial.read();
-
-    //                 // say what you got:
-    //                 Serial.print("I received: ");
-    //                 Serial.println(incomingByte);
-    //         }
-    // }

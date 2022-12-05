@@ -135,6 +135,7 @@ if __name__ == "__main__":
             print(bytes(f'{SPEECH_TO_BIN[guess["transcription"]]}', "utf-8"))
             data = ser.readline()
             print(data)
+            time.sleep(5)
 
         except:
             print("ERROR: Unknown command")
