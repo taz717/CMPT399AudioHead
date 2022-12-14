@@ -40,6 +40,18 @@ void loop()
         {
             driver.send((uint8_t *)"r", (1));
         }
+        if (incomingByte == 's')
+        {
+            driver.send((uint8_t *)"s", (1));
+        }
+        if (incomingByte == 'p')
+        {
+            driver.send((uint8_t *)"p", (1));
+        }
+        if (incomingByte == 'x')
+        {
+            driver.send((uint8_t *)"x", (1));
+        }
 
         // say what you got:
         Serial.print("I received: ");

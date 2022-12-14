@@ -74,14 +74,17 @@ if __name__ == "__main__":
     # set the list of words, maxnumber of guesses, and prompt limit
     SPEECH_TO_BIN = {
         "forward": "f",
+        "forwards": "f",
         "backward": "b",
+        "backwards": "b",
+        "awkward": "b",
         "left": "l",
         "right": "r",
         "start": "s",
         "stop": "p",
         "reset": "x",
     }
-    ser = serial.Serial("COM3", 9600, timeout=1)
+    ser = serial.Serial("COM10", 9600, timeout=1)
     PROMPT_LIMIT = 100
     record = False
     recorded = []
